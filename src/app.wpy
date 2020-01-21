@@ -1,0 +1,124 @@
+<style lang="less"></style>
+
+<script>
+import wepy from 'wepy';
+import 'wepy-async-function';
+import '@/baseAPI.js';
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/tabs/home',
+      'pages/tabs/cates',
+      'pages/tabs/search',
+      'pages/tabs/cart',
+      'pages/tabs/my',
+      'pages/goods_detail/main',
+      'pages/goods_list'
+    ],
+    window: {
+      backgroundTextStyle: 'dark',
+      navigationBarBackgroundColor: '#d81e06',
+      navigationBarTitleText: '品优购',
+      navigationBarTextStyle: 'white'
+    },
+    tabBar: {
+      list: [
+        {
+          // 页面路径
+          pagePath: 'pages/tabs/home',
+          // 显示的文本
+          text: '首页',
+          // 默认图标路径
+          iconPath: '/assets/icons/home.png',
+          // 选中之后的图标路径
+          selectedIconPath: '/assets/icons/home-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/cates',
+          text: '分类',
+          iconPath: '/assets/icons/cates.png',
+          selectedIconPath: '/assets/icons/cates-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/search',
+          text: '搜索',
+          iconPath: '/assets/icons/search.png',
+          selectedIconPath: '/assets/icons/search-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/cart',
+          text: '购物车',
+          iconPath: '/assets/icons/cart.png',
+          selectedIconPath: '/assets/icons/cart-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/my',
+          text: '我的',
+          iconPath: '/assets/icons/my.png',
+          selectedIconPath: '/assets/icons/my-active.png'
+        }
+      ]
+    },
+    // 引用并注册全局组件
+    usingComponents: {
+      // 徽章组件
+      'van-badge': './assets/vant/badge/index',
+      'van-badge-group': './assets/vant/badge-group/index',
+      // 布局组件
+      'van-row': './assets/vant/row/index',
+      'van-col': './assets/vant/col/index',
+      // 搜索组件
+      'van-search': './assets/vant/search/index',
+      // 搜索的单元格
+      'van-cell': './assets/vant/cell/index',
+      'van-cell-group': './assets/vant/cell-group/index',
+      // 图标
+      'van-icon': './assets/vant/icon/index',
+      // 标签
+      'van-tag': './assets/vant/tag/index'
+    }
+  };
+
+  globalData = {
+    userInfo: null
+  };
+
+  constructor() {
+    super();
+    this.use('requestfix');
+    this.use('promisify');
+    // 拦截器
+    this.intercept('request', {
+      // 发出请求时的回调函数
+      config(p) {
+        // 显示loading的效果
+        wepy.showLoading({
+          title: '数据加载中...'
+        });
+        return p;
+      },
+
+      // 请求成功后的回调函数
+      success(p) {
+        // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+        return p;
+      },
+
+      //请求失败后的回调函数
+      fail(p) {
+        // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+        return p;
+      },
+      // 请求完成时的回调函数(请求成功或失败都会被执行)
+      complete(p) {
+        // 隐藏loading效果
+        wepy.hideLoading();
+      }
+    });
+  }
+
+  onLaunch() {
+    console.log('小程序 running……');
+  }
+}
+</script>

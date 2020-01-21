@@ -1,0 +1,12 @@
+<template >
+    <view>111</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class extends wepy.page {
+    onLoad(options){
+        console.log(options)
+    }
+}
+</script>

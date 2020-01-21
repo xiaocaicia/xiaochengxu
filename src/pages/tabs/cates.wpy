@@ -1,0 +1,65 @@
+<style lang="less">
+.left {
+  width: 85px;
+}
+.cates-container {
+  display: flex;
+}
+.right {
+  .cate_title {
+    font-size: 26rpx;
+    font-weight: bold;
+    display: inline-block;
+    margin: 30rpx 0;
+  }
+}
+.cell {
+  .thumbImg {
+    width: 120rpx;
+    height: 120rpx;
+  }
+  .thumbTitle {
+    font-size: 24rpx
+  }
+}
+</style>
+
+<script>
+import wepy from 'wepy';
+// 导入cates.js
+import mix from '@/mixins/tabs/cates.js';
+
+export default class extends wepy.page {
+  mixins = [mix];
+}
+</script>
+
+<template>
+ <view class="cates-container">
+    <!--左侧得滚动区域-->
+  <scroll-view class="left" scroll-y style="height:{{whight}}">
+    <van-badge-group active="{{ active }}" bind:change="onChange">
+      <van-badge title="{{item.cat_name}}" wx:for="{{cateList}}" wx:key="index" />
+    </van-badge-group>
+  </scroll-view>
+  <!--右侧得滚动区域-->
+  <scroll-view class="right" scroll-y style="height:{{whight}}">
+    <!--循环创建二级分类-->
+    <block wx:for="{{secondCate}}" wx:key="index" >
+      <van-row>
+        <van-col span="24" style="text-align:center">
+          <text class="cate_title" space="ensp">/  {{item.cat_name}}  /</text>
+        </van-col>
+      </van-row>
+      <van-row>
+        <block wx:for="{{item.children}}" wx:key="index">
+           <van-col span="8" class="cell" @tap="goGoodsList({{item.cat_id}})">
+          <image class="thumbImg" src="{{item.cat_icon}}">
+          <view class="thumbTitle">{{item.cat_name}}</view>
+           </van-col>
+        </block>
+      </van-row>
+    </block>
+  </scroll-view>
+ </view>
+</template>

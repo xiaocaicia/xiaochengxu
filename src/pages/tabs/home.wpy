@@ -1,0 +1,85 @@
+<style lang="less">
+swiper {
+  height: 350rpx;
+  navigator,
+  image {
+    height: 100%;
+    width: 750rpx;
+  }
+}
+ .cates {
+    display: flex;
+    justify-content: space-around;
+    margin: 40rpx 0;
+    image {
+      width: 128rpx;
+      height: 140rpx;
+    }
+  }
+  .floor-container{
+    .floor-item {
+      .floor-item-title{
+        height: 50rpx;
+        width: 640rpx;
+        display: block
+      }
+    }
+  }
+  .floor-img-box {
+    .floor-img-pic {
+      float: left;
+      height: 190rpx;
+       margin: 8rpx;
+       margin-top: 0rpx;
+      &:nth-child(1) {
+        height: 390rpx;
+      }
+    }
+  }
+</style>
+
+<script>
+import wepy from 'wepy';
+// 导入抽离出去的 @ 就代表src的路劲
+import mix from '@/mixins/tabs/home.js'
+// js文件的话 就直接导入
+import '@/baseAPI.js'
+export default class extends wepy.page {
+  // 挂载到wepy.page上面
+  mixins = [mix]
+}
+</script>
+
+<template>
+  <view>Home 页面</view>
+  <!-- // 轮播图 -->
+  <view>
+    <swiper indicator-dots circular>
+      <swiper-item wx:for="{{swiperList}}" wx:key="index">
+        <navigator url="{{item.navigator_url}}" open-type="{{item.open_type}}">
+          <image src="{{item.image_src}}" />
+        </navigator>
+      </swiper-item>
+    </swiper>
+  </view>
+  <!-- // 分类 -->
+  <view class="cates">
+    <block wx:for="{{cateItems}}" wx:key="index">
+      <navigator url="/pages/tabs/cates" open-type="{{item.open_type}}" wx:if="{{item.open_type !== undefined}}" hover-class="none">
+        <image src="{{item.image_src}}" />
+      </navigator>
+       <image src="{{item.image_src}}" wx:else/>
+    </block>
+  </view>
+  <!-- // 楼层 -->
+  <view class="floor-container">
+     <view class="floor-item" wx:for="{{floorData}}" wx:key="index">
+        <image class="floor-item-title" src="{{item.floor_title.image_src}}"/>
+        <!-- 楼层图片 -->
+       <view class="floor-img-box">
+         <image class="floor-img-pic" wx:for="{{item.product_list}}" wx:key="index" src="{{item.image_src}}" style="width:{{item.image_width}}rpx" @tap="goGoodsList({{item.navigator_url}})"/>
+       </view>
+     </view>
+  </view>
+
+</template>
