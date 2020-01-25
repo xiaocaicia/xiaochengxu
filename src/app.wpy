@@ -18,7 +18,7 @@ export default class extends wepy.app {
     window: {
       backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#d81e06',
-      navigationBarTitleText: '品优购',
+      navigationBarTitleText: '女神街/下一个女神就是你',
       navigationBarTextStyle: 'white'
     },
     tabBar: {
@@ -75,14 +75,53 @@ export default class extends wepy.app {
       // 图标
       'van-icon': './assets/vant/icon/index',
       // 标签
-      'van-tag': './assets/vant/tag/index'
+      'van-tag': './assets/vant/tag/index',
+      // 商品卡片
+      'van-card': './assets/vant/card/index',
+      // tab标签页
+      'van-tab': './assets/vant/tab/index',
+      'van-tabs': './assets/vant/tabs/index',
+      // 把html代码转换为WXML代码的插件
+      wxparse: './assets/wxparse/wxparse',
+      // 购物车导航区域
+      'van-goods-action': './assets/vant/goods-action/index',
+      'van-goods-action-icon': './assets/vant/goods-action-icon/index',
+      'van-goods-action-button': './assets/vant/goods-action-button/index'
     }
   };
-
+  // 专门存储全局共享的数据
+  // 只需要通过this.$parent.glbalData 就可以拿到这个全局共享的数据对象
   globalData = {
-    userInfo: null
+    cart: []
   };
 
+  // 把商品，添加到购物车列表中
+  addGoodsToCart(goods) {
+    const i = this.globalData.cart.findIndex(x => x.id === goods.goods_id)
+    // 当i不等于 -1 的时候 返回的是添加进来的新的信息的索引 证明有重复的 等于-1 就是没有重复的
+    if(i !== -1) {
+      this.globalData.cart[i].count++
+       this.saveCartToStorage()
+      console.log( this.globalData.cart)
+      return
+    }
+    // 梳理出来的商品信息对象
+    const info = {
+      id: goods.goods_id,
+      name: goods.goods_name,
+      pic: goods.goods_small_logo,
+      price: goods.goods_price,
+      count: 1,
+      isCheck: true
+    };
+    // 这里需要把传过来的放在数组中
+    this.globalData.cart.push(info);
+    this.saveCartToStorage()
+  }
+  // 将购物车中的商品数据，持久化保存到本地
+  saveCartToStorage() {
+    wepy.setStorageSync('cart',this.globalData.cart)
+  }
   constructor() {
     super();
     this.use('requestfix');
@@ -119,6 +158,7 @@ export default class extends wepy.app {
 
   onLaunch() {
     console.log('小程序 running……');
+    this.globalData.cart = wepy.getStorageSync('cart') || []
   }
 }
 </script>

@@ -49,7 +49,7 @@ export default class extends wepy.mixin{
           return wepy.baseToast();
         }
         this.floorData = res.message
-        console.log(this.floorData)
+        // console.log(this.floorData)
         this.$apply()
       }
 }

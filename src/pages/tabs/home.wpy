@@ -51,7 +51,6 @@ export default class extends wepy.page {
 </script>
 
 <template>
-  <view>Home 页面</view>
   <!-- // 轮播图 -->
   <view>
     <swiper indicator-dots circular>

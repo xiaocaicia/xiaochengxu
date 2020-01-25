@@ -1,14 +1,48 @@
 <template>
-    <view>
-        商品列表
-    </view>
+  <view>
+      <!--商品卡片区域-->
+    <block wx:for="{{goodsList}}" wx:key="index">
+      <van-card
+        num="{{item.goods_number}}"
+        price="{{item.goods_price}}"
+        title="{{item.goods_name}}"
+        thumb="{{ item.goods_small_logo }}" @tap="goGoodsDetail({{item.goods_id}})"
+      />
+        <!--分割线-->
+    <view class="sep_line"></view>
+    </block>
+     <!--数据加载完毕后的提示消息-->
+     <view class="over_line" hidden="{{!isover}}">-----到底了，不能再拉了-----</view>
+  </view>
 </template>
 
 <script>
-import wepy from 'wepy'
+import wepy from 'wepy';
+// 导入js部分
+import mix from '@/mixins/goods_list.js';
 export default class extends wepy.page {
-    onLoad(options){
-        console.log('options')
-    }
+  // 注意：config节点只能写到页面的js中，不能抽离到minxin中
+  config = {
+    navigationBarTitleText: '商品列表',
+    // 上拉触底的距离 默认是50px 这里设置了 就被覆盖了
+    onReachBottomDistance:100,
+    // 开启下拉刷新
+    enablePullDownRefresh:true,
+    backgroundColor: '#eee'
+  };
+  mixins = [mix];
 }
 </script>
+<style lang="less">
+.sep_line {
+    border-top: 1rpx solid #ccc;
+}
+.over_line {
+    font-size: 26rpx;
+    font-weight: 700;
+    text-align: center;
+    height: 60rpx;
+    line-height: 60rpx;
+    color: #ccc;
+}
+</style>
