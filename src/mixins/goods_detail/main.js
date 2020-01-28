@@ -57,6 +57,10 @@ export default class extends wepy.mixin {
           const str = 
           addr.provinceName + addr.cityName + addr.countyName + addr.detailInfo
           return str
+      },
+      // 定义一个计算属性 把全部的全选状态的数量传给下面的
+      total(){
+        return this.$parent.globalData.total
       }
   }
   // 触发标签选择的
