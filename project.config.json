@@ -82,6 +82,20 @@
 					"pathName": "pages/tabs/cart",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "确认订单",
+					"pathName": "pages/order",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "订单列表",
+					"pathName": "pages/orderlist",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

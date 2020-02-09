@@ -14,7 +14,9 @@ export default class extends wepy.app {
       'pages/goods_detail/main',
       'pages/goods_list',
       'pages/tabs/cart',
-      'pages/order'
+      'pages/order',
+      // 订单列表页面
+      'pages/orderlist'
     ],
     window: {
       backgroundTextStyle: 'dark',
@@ -95,7 +97,11 @@ export default class extends wepy.app {
       // 滑动删除
       'van-swipe-cell': './assets/vant/swipe-cell/index',
       // 购物车提交栏
-      'van-submit-bar': './assets/vant/submit-bar/index'
+      'van-submit-bar': './assets/vant/submit-bar/index',
+      // 按钮组件
+      "van-button": "./assets/vant/button/index",
+      // 面板组件
+       "van-panel": "./assets/vant/panel/index"
     }
   };
   // 专门存储全局共享的数据

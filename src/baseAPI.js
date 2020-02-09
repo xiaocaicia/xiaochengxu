@@ -21,9 +21,9 @@ wepy.get = function (url,data = {}) {
 }
 
 // 定义一个封装post请求的封装函数
-wepy.post = function(url,data = {}){
+wepy.post = function (url, data = {}) {  
   return wepy.request({
-    url: baseUrl+url,
+    url: baseUrl + url,
     method: 'POST',
     data
   })
