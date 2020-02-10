@@ -15,6 +15,9 @@ export default class extends wepy.mixin{
         this.getCateItems();
         this.getFloorData()
       }
+      onShow() {
+        this.$parent.renderCarBadge()
+      }
       methods = {
         goGoodsList (url){
           wepy.navigateTo({

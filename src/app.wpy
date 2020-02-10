@@ -172,6 +172,7 @@ export default class extends wepy.app {
     });
     this.saveCartToStorage();
   }
+  // 购物车角标的数量设置
   async renderCarBadge() {
     let c = 0;
     this.globalData.cart.forEach(x => {

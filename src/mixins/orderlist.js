@@ -32,7 +32,13 @@ export default class extends wepy.mixin {
     if(res.meta.status !== 200) {
         return wepy.baseToast('获取订单数据失败')
     }
-    console.log(res)
+    // console.log(res)
+
+    // 把order_detail转换成数组得形似
+    res.message.orders.forEach(
+        x => (x.order_detail = JSON.parse(x.order_detail))
+    )
+
     if(index == 0) {
         this.allOrderList = res.message.orders
     }else if (index === 1) {

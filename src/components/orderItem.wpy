@@ -17,6 +17,8 @@
           </van-panel>
 </template>
 <script>
+import wepy from 'wepy'
+
 export default class extends wepy.component {
     data = {}
 

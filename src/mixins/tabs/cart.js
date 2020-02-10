@@ -6,6 +6,10 @@ export default class extends wepy.mixin {
   };
   onLoad() {
     this.cart = this.$parent.globalData.cart;
+
+  }
+  onShow() {
+    this.$parent.renderCarBadge()
   }
   computed = {
     // 判断购物车是否为空
